@@ -3,6 +3,7 @@ var babelify = require('babelify');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
+var historyApiFallback = require('connect-history-api-fallback');
 
 gulp.task('reload', browserSync.reload);
 
@@ -24,7 +25,8 @@ gulp.task('watch-files', function() {
     './app/assets/css/styles.css'
   ], ['reload']);
   gulp.watch([
-    './app/src/!(index)/*.js'
+    './app/src/**/*.js',
+    '!./app/src/index.js/*.js'
   ], ['rebuild-js']);
 });
 
@@ -32,6 +34,7 @@ gulp.task('init', function() {
   browserSync.init({
     server: {
       baseDir: './',
+      middleware: [historyApiFallback()],
       index: 'index.html'
     }
   });
