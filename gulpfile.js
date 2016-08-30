@@ -33,7 +33,7 @@ gulp.task('watch-files', function() {
 gulp.task('init', function() {
   browserSync.init({
     server: {
-      baseDir: './',
+      baseDir: ['./', './src'],
       middleware: [historyApiFallback()],
       index: 'index.html'
     }
